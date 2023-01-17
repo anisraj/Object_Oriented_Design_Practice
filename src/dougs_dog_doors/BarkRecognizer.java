@@ -7,8 +7,12 @@ public class BarkRecognizer {
         this.dogDoor = dogDoor;
     }
 
-    public void recognize(String bark) {
-        System.out.println("BarkRecognizer: Heard a "+bark);
-        dogDoor.open();
+    public void recognize(Bark bark) {
+        System.out.println("BarkRecognizer: Heard a "+bark.getSound());
+        if (dogDoor.getAllowedBark().equals(bark)) {
+            dogDoor.open();
+        } else {
+            System.out.println("This dog is not allowed");
+        }
     }
 }
