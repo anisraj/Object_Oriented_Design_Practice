@@ -3,7 +3,10 @@ package dougs_dog_doors;
 public class DogDoorSimulator {
     public static void main() {
         DogDoor dogDoor = new DogDoor();
-        dogDoor.setAllowedBark(new Bark("woof"));
+        dogDoor.addAllowedBark(new Bark("rowlf"));
+        dogDoor.addAllowedBark(new Bark("rooowlf"));
+        dogDoor.addAllowedBark(new Bark("rawlf"));
+        dogDoor.addAllowedBark(new Bark("woof"));
         BarkRecognizer barkRecognizer = new BarkRecognizer(dogDoor);
         Remote remote = new Remote(dogDoor);
 
@@ -22,9 +25,17 @@ public class DogDoorSimulator {
 
         System.out.println("\nFido starts barking...");
 
-        barkRecognizer.recognize(new Bark("woof"));
+        barkRecognizer.recognize(new Bark("rawlf"));
 
         System.out.println("\nFido is back inside...");
+
+        try {
+            Thread.currentThread().sleep(1000);
+        } catch (InterruptedException e) { }
+
+        System.out.println("\nMoti starts barking...");
+
+        barkRecognizer.recognize(new Bark("bho bho"));
 
     }
 }

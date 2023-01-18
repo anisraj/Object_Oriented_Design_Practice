@@ -1,5 +1,7 @@
 package dougs_dog_doors;
 
+import java.util.List;
+
 public class BarkRecognizer {
     private DogDoor dogDoor;
 
@@ -9,10 +11,13 @@ public class BarkRecognizer {
 
     public void recognize(Bark bark) {
         System.out.println("BarkRecognizer: Heard a "+bark.getSound());
-        if (dogDoor.getAllowedBark().equals(bark)) {
-            dogDoor.open();
-        } else {
-            System.out.println("This dog is not allowed");
+        List<Bark> allowedBarks = dogDoor.getAllowedBarks();
+        for (Bark allowedBark : allowedBarks) {
+            if (allowedBark.equals(bark)) {
+                dogDoor.open();
+                return;
+            }
         }
+        System.out.println("This dog is not allowed");
     }
 }
