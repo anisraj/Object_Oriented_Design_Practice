@@ -30,10 +30,10 @@ public class FindGuitarTester {
     }
 
     private static void initializeInventory(Inventory inventory) {
-        inventory.addGuitar("V95693",
+        inventory.addInstrument("V95693",
                 1499.95, Builder.FENDER, "Stratocastor",
                 Type.ELECTRIC, Wood.ALDER, Wood.ALDER, 12);
-        inventory.addGuitar("V9512",
+        inventory.addInstrument("V9512",
                 1549.95, Builder.FENDER, "Stratocastor",
                 Type.ELECTRIC, Wood.ALDER, Wood.ALDER, 11);
     }
