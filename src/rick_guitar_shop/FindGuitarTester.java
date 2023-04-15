@@ -1,26 +1,30 @@
 package rick_guitar_shop;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FindGuitarTester {
     public static void main() {
         Inventory inventory = new Inventory();
-        GuitarSpec whatErinLikes = new GuitarSpec(Builder.FENDER, "Stratocastor",
-                Type.ELECTRIC, Wood.ALDER, Wood.ALDER, 12);
+        Map properties = new HashMap<>();
+        properties.put("builder", Builder.FENDER);
+        properties.put("backWood", Wood.ALDER);
+        properties.put("instrumentType", InstrumentType.GUITAR);
+        InstrumentSpec whatErinLikes = new InstrumentSpec(properties);
 
         initializeInventory(inventory);
         List<Instrument> instruments = inventory.search(whatErinLikes);
         if (!instruments.isEmpty()) {
-            System.out.println("Erin, you might like these guitars: ");
             for (Instrument instrument : instruments) {
                 InstrumentSpec spec = instrument.getInstrumentSpec();
-                System.out.println("We have a "+
-                        spec.getBuilder() + " " + spec.getModel() + " "+
-                        spec.getType() + " guitar:\n " +
-                        spec.getBackWood() + " back and sides,\n" +
-                        spec.getTopWood() + " top.\nYou can have it for only $" +
-                        instrument.getPrice() + "!\n-----"
-                );
+                System.out.println("We have a " + spec.getProperty("instrumentType") +
+                        " with the following properties:");
+                for (Object keyValue : spec.getProperties().keySet()) {
+                    String key = keyValue.toString();
+                    if (key.equals("instrumentType")) continue;
+                    System.out.println(" " + key + ":" + spec.getProperty(key));
+                }
             }
         } else {
             System.out.println("Sorry Erin, we have nothing for you.");
@@ -29,13 +33,20 @@ public class FindGuitarTester {
     }
 
     private static void initializeInventory(Inventory inventory) {
+        Map guitarProperties = new HashMap<>();
+        guitarProperties.put("builder", Builder.FENDER);
+        guitarProperties.put("backWood", Wood.ALDER);
+        guitarProperties.put("instrumentType", InstrumentType.GUITAR);
         inventory.addInstrument("V95693", 1499.95,
-                new InstrumentSpec(Builder.FENDER, "Stratocastor",
-                        Type.ELECTRIC, Wood.ALDER, Wood.ALDER),
+                new InstrumentSpec(guitarProperties),
                  InstrumentType.GUITAR);
+
+        Map banjoProperties = new HashMap<>();
+        banjoProperties.put("builder", Builder.GIBSON);
+        banjoProperties.put("backWood", Wood.CEDAR);
+        banjoProperties.put("instrumentType", InstrumentType.BANJO);
         inventory.addInstrument("V9512", 1549.95,
-                new InstrumentSpec(Builder.FENDER, "Stratocastor",
-                        Type.ELECTRIC, Wood.ALDER, Wood.ALDER),
+                new InstrumentSpec(banjoProperties),
                 InstrumentType.BANJO);
     }
 }
